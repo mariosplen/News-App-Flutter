@@ -4,7 +4,8 @@ import 'package:news_api_flutter_package/news_api_flutter_package.dart';
 
 import 'package:flutter_news_app/models/filters.dart';
 
-NewsAPI _newsAPI = NewsAPI("e44d15833154444b8581d5c8cafdad79");
+// NewsAPI _newsAPI = NewsAPI("e44d15833154444b8581d5c8cafdad79");
+NewsAPI _newsAPI = NewsAPI("faa1ad9af01e430080a083faff1662ad");
 
 int _pageSize = 10;
 

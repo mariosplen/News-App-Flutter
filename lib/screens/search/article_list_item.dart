@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_news_app/screens/search/article_detail.dart';
 import 'package:news_api_flutter_package/model/article.dart';
 
 /// List item representing a single Article
@@ -23,6 +24,13 @@ class ArticleListItem extends StatelessWidget {
         backgroundImage: articleImage?.image,
       ),
       title: Text(article.title!),
+      onTap: () {
+        Navigator.push(context, MaterialPageRoute(
+          builder: (context) {
+            return ArticleDetailScreen(article: article);
+          },
+        ));
+      },
     );
   }
 }

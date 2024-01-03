@@ -57,6 +57,7 @@ class _SearchTopBarState extends State<SearchTopBar> {
           children: [
             Expanded(
               child: TextField(
+                controller: TextEditingController()..text = 'Tesla',
                 decoration: InputDecoration(
                   labelText: 'Search',
                   fillColor: Colors.grey.shade200,

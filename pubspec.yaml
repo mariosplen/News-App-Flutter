@@ -42,6 +42,7 @@ dependencies:
   infinite_scroll_pagination: ^4.0.0
   rxdart: ^0.27.7
   syncfusion_flutter_datepicker: ^24.1.44
+  webview_flutter: ^4.4.2
 
 dev_dependencies:
   flutter_test:

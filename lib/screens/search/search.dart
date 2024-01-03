@@ -19,8 +19,8 @@ class _SearchScreenState extends State<SearchScreen> {
       PagingController(firstPageKey: 1);
 
   Filters filters = Filters(
-      isEverythingMode: false,
-      searchQuery: null,
+      isEverythingMode: true,
+      searchQuery: "Tesla",
       language: 'en',
       country: 'us',
       category: null,
