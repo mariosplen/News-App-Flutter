@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_news_app/screens/auth/logo.dart';
 import 'package:flutter_news_app/screens/auth/validators.dart';
+// import 'package:flutter_news_app/services/firestore_service.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key, required this.toggleAuthScreen});
@@ -54,6 +55,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
         email: _email,
         password: _password,
       );
+
+      // await FirestoreService().registerUser(user.user!.uid, user.user!.email!);
 
       showAlert('New user ${user.user!.email} created');
     } catch (e) {

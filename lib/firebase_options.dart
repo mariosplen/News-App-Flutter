@@ -49,6 +49,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '259061766735',
     projectId: 'flutter-news-app-c3502',
     authDomain: 'flutter-news-app-c3502.firebaseapp.com',
+    databaseURL: 'https://flutter-news-app-c3502-default-rtdb.europe-west1.firebasedatabase.app',
     storageBucket: 'flutter-news-app-c3502.appspot.com',
   );
 
@@ -57,6 +58,7 @@ class DefaultFirebaseOptions {
     appId: '1:259061766735:android:8d7580f5192365171fe83a',
     messagingSenderId: '259061766735',
     projectId: 'flutter-news-app-c3502',
+    databaseURL: 'https://flutter-news-app-c3502-default-rtdb.europe-west1.firebasedatabase.app',
     storageBucket: 'flutter-news-app-c3502.appspot.com',
   );
 
@@ -65,6 +67,7 @@ class DefaultFirebaseOptions {
     appId: '1:259061766735:ios:3963ce08a399d56b1fe83a',
     messagingSenderId: '259061766735',
     projectId: 'flutter-news-app-c3502',
+    databaseURL: 'https://flutter-news-app-c3502-default-rtdb.europe-west1.firebasedatabase.app',
     storageBucket: 'flutter-news-app-c3502.appspot.com',
     iosBundleId: 'com.example.flutterNewsApp',
   );
@@ -74,6 +77,7 @@ class DefaultFirebaseOptions {
     appId: '1:259061766735:ios:ff0d0efd0555553d1fe83a',
     messagingSenderId: '259061766735',
     projectId: 'flutter-news-app-c3502',
+    databaseURL: 'https://flutter-news-app-c3502-default-rtdb.europe-west1.firebasedatabase.app',
     storageBucket: 'flutter-news-app-c3502.appspot.com',
     iosBundleId: 'com.example.flutterNewsApp.RunnerTests',
   );

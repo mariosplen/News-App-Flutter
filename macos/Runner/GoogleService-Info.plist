@@ -26,5 +26,7 @@
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
 	<string>1:259061766735:ios:ff0d0efd0555553d1fe83a</string>
+	<key>DATABASE_URL</key>
+	<string>https://flutter-news-app-c3502-default-rtdb.europe-west1.firebasedatabase.app</string>
 </dict>
 </plist>
