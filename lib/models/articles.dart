@@ -20,22 +20,6 @@ class Article {
         date = json['date'] as String,
         category = json['category'] as String;
 
-  Article copyWith({
-    String? title,
-    String? content,
-    String? imageUrl,
-    String? date,
-    String? category,
-  }) {
-    return Article(
-      title: title ?? this.title,
-      content: content ?? this.content,
-      imageUrl: imageUrl ?? this.imageUrl,
-      date: date ?? this.date,
-      category: category ?? this.category,
-    );
-  }
-
   Map<String, dynamic> toJson() {
     return {
       'title': title,
@@ -50,14 +34,8 @@ class Article {
     return articles.map((article) => article.toJson()).toList();
   }
 
-  static List<Article> fromJsonList(List<Map<String, dynamic>> jsonList) {
+  static List<Article> fromJsonListDynamic(List<dynamic> jsonList) {
     return jsonList.map((json) => Article.fromJson(json)).toList();
-  }
-
-  static List<Article> fromObjectList(List<Object?> objectList) {
-    return objectList
-        .map((object) => Article.fromJson(object as Map<String, dynamic>))
-        .toList();
   }
 
   @override

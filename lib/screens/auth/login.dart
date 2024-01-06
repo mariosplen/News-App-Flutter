@@ -162,12 +162,12 @@ class _LoginScreenState extends State<LoginScreen> {
       });
 
       // Sign user up
-      final user = await FirebaseAuth.instance.signInWithEmailAndPassword(
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: _email,
         password: _password,
       );
 
-      showAlert('Welcome back ${user.user!.email} !');
+      // showAlert('Welcome back ${user.user!.email} !');
     } catch (e) {
       // Show error message
       if (e is FirebaseAuthException) {

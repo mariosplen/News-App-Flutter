@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_news_app/screens/auth/logo.dart';
 import 'package:flutter_news_app/screens/auth/validators.dart';
+import 'package:flutter_news_app/services/firestore_service.dart';
 // import 'package:flutter_news_app/services/firestore_service.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -19,10 +20,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
   var _isLoading = false; // Used for the spinner
   var _isPassHiden = true; // Used to toggle password visibility
   var _isConfirmPassHiden = true;
+  var _name = '';
   var _email = '';
   var _password = '';
 
   final _formKey = GlobalKey<FormState>();
+  final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
@@ -56,17 +59,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
         password: _password,
       );
 
-      // await FirestoreService().registerUser(user.user!.uid, user.user!.email!);
+      await FirestoreService().registerUser(user.user!.uid, _name, _email, []);
 
-      showAlert('New user ${user.user!.email} created');
+      // showAlert('New user ${user.user!.email} created');
     } catch (e) {
       // Show error message
       showAlert(e.toString());
     } finally {
       // Stop spinner
-      setState(() {
-        _isLoading = false;
-      });
+      if (mounted) {
+        setState(() {
+          _isLoading = false;
+        });
+      }
     }
   }
 
@@ -92,6 +97,25 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     const Logo(),
+                    TextFormField(
+                      validator: (value) {
+                        if (value == null || value.length < 2) {
+                          return 'Name must be at least 2 characters long';
+                        }
+                        return null;
+                      },
+                      controller: _nameController,
+                      onSaved: (newValue) {
+                        _name = newValue!;
+                      },
+                      autocorrect: true,
+                      keyboardType: TextInputType.name,
+                      textCapitalization: TextCapitalization.words,
+                      decoration: const InputDecoration(
+                        labelText: 'Name',
+                        prefixIcon: Icon(Icons.person),
+                      ),
+                    ),
                     TextFormField(
                       validator: validateEmail,
                       controller: _emailController,

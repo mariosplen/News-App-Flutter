@@ -5,16 +5,13 @@ import 'package:flutter_news_app/firebase_options.dart';
 import 'package:flutter_news_app/screens/auth/auth.dart';
 import 'package:flutter_news_app/screens/auth/splash.dart';
 import 'package:flutter_news_app/screens/navigation/navigation.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  FirebaseFirestore.instance.settings = const Settings(
-    persistenceEnabled: false,
-  );
+
   runApp(const MyApp());
 }
 
@@ -27,7 +24,7 @@ class MyApp extends StatelessWidget {
       title: 'News App',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
-            seedColor: const Color.fromARGB(255, 27, 77, 192)),
+            seedColor: const Color.fromARGB(255, 0, 119, 255)),
         useMaterial3: true,
       ),
       home: StreamBuilder(

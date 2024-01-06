@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_ui_firestore/firebase_ui_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_news_app/models/articles.dart';
-import 'package:flutter_news_app/screens/search/article_list_item.dart';
+import 'package:flutter_news_app/screens/articles/article_list_item.dart';
+import 'package:firebase_ui_firestore/firebase_ui_firestore.dart';
 
 class ArticleListBuilder extends StatelessWidget {
   const ArticleListBuilder({
@@ -15,7 +15,7 @@ class ArticleListBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FirestoreQueryBuilder<Article>(
-      pageSize: 10,
+      pageSize: 3,
       query: query,
       builder: (context, snapshot, _) {
         if (snapshot.isFetching) {
@@ -33,7 +33,9 @@ class ArticleListBuilder extends StatelessWidget {
               // The article data
               final article = snapshot.docs[index].data();
 
-              return ArticleListItem(article: article);
+              return ArticleListItem(
+                article: article,
+              );
             },
           );
         }
@@ -55,7 +57,9 @@ class ArticleListBuilder extends StatelessWidget {
 void _fetchMoreArticlesIfEndReached(
   FirestoreQueryBuilderSnapshot<Article> snapshot,
   int index,
-) {
+) async {
+  await Future.delayed(const Duration(milliseconds: 400));
+
   final hasEndReached = snapshot.hasMore &&
       (index + 1) == snapshot.docs.length &&
       !snapshot.isFetchingMore;

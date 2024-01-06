@@ -25,6 +25,10 @@ class CategoryButton extends StatelessWidget {
               style: const TextStyle(color: Colors.white, fontSize: 16)),
           trailing: Checkbox(
             checkColor: Colors.white,
+            side: BorderSide(
+              width: 2,
+              color: Theme.of(context).colorScheme.outlineVariant,
+            ),
             value: selected,
             onChanged: null,
           ),

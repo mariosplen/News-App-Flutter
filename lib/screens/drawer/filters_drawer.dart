@@ -1,6 +1,4 @@
 import 'package:basic_utils/basic_utils.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_news_app/models/categories.dart';
 import 'package:flutter_news_app/screens/drawer/category_button.dart';
@@ -10,23 +8,29 @@ class FiltersDrawer extends StatelessWidget {
     super.key,
     required this.selectedCategories,
     required this.onSelectedCategoriesChanged,
+    required this.name,
+    required this.email,
+    required this.onSignOut,
   });
 
   final List<String> selectedCategories;
   final Function onSelectedCategoriesChanged;
+  final String name;
+  final String email;
+  final VoidCallback onSignOut;
 
   static const padding = EdgeInsets.symmetric(horizontal: 20);
 
   @override
   Widget build(BuildContext context) => Drawer(
         child: Container(
-          color: const Color.fromRGBO(50, 55, 205, 1),
+          color: Theme.of(context).colorScheme.tertiary,
           child: ListView(
             children: <Widget>[
               buildHeader(
                 context,
-                name: "John Doe",
-                email: "johndoe13@gmail.com",
+                name: name,
+                email: email,
               ),
               Container(
                 padding: padding,
@@ -68,7 +72,7 @@ class FiltersDrawer extends StatelessWidget {
         padding: padding.add(const EdgeInsets.symmetric(vertical: 40)),
         child: Row(
           children: [
-            const SizedBox(width: 20),
+            const SizedBox(width: 10),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -85,11 +89,7 @@ class FiltersDrawer extends StatelessWidget {
             ),
             const Spacer(),
             IconButton(
-              onPressed: () {
-                print("logout");
-                FirebaseAuth.instance.signOut();
-                Navigator.of(context).pop();
-              },
+              onPressed: onSignOut,
               icon: const Icon(Icons.logout, color: Colors.white),
             )
           ],

@@ -137,6 +137,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.3.1"
+  favorite_button:
+    dependency: "direct main"
+    description:
+      name: favorite_button
+      sha256: b7533330b7e5592567c4cce5f475ecc19ef1e77aa48c77f43726f7b8150a3e2c
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.4"
   ffi:
     dependency: transitive
     description:
@@ -228,10 +236,11 @@ packages:
   firebase_ui_firestore:
     dependency: "direct main"
     description:
-      name: firebase_ui_firestore
-      sha256: "2797ae050893a0e5446356dce5cbcb88ae0b5682f803fcaabd956444183068d0"
-      url: "https://pub.dev"
-    source: hosted
+      path: "packages/firebase_ui_firestore"
+      ref: fix-239
+      resolved-ref: d70c313bedd7c33a1af0985265e0438f1cccdf5a
+      url: "https://github.com/Codelessly/firebaseui-flutter.git"
+    source: git
     version: "1.6.0"
   firebase_ui_localizations:
     dependency: transitive
