@@ -1,5 +1,7 @@
+import 'package:basic_utils/basic_utils.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_news_app/models/articles.dart';
+import 'package:flutter_news_app/models/categories.dart';
 import 'package:flutter_news_app/models/users.dart';
 
 const String articlesTable = 'articles';
@@ -8,19 +10,32 @@ const String usersTable = 'users';
 class FirestoreService {
   final _firestore = FirebaseFirestore.instance;
 
-  Query<Article> getArticles(List<String> categories) {
-    Query<Article> query = _firestore
+  Query<Article> getArticles(List<String> selectedCateg, String searchQuery) {
+    // if search is provided then search on all categories
+    if (searchQuery.isNotEmpty) {
+      final search = StringUtils.capitalize(searchQuery);
+      return _firestore
+          .collection(articlesTable)
+          .where('title', isGreaterThanOrEqualTo: search)
+          .where('title', isLessThan: '${search}z')
+          .withConverter<Article>(
+            fromFirestore: (snapshots, _) =>
+                Article.fromJson(snapshots.data()!),
+            toFirestore: (article, _) => article.toJson(),
+          );
+    }
+
+    // if no category is selected then select all categories
+    if (selectedCateg.isEmpty) {
+      selectedCateg = categories.map((e) => e.name).toList();
+    }
+    return _firestore
         .collection(articlesTable)
+        .where('category', whereIn: selectedCateg)
         .withConverter<Article>(
           fromFirestore: (snapshots, _) => Article.fromJson(snapshots.data()!),
           toFirestore: (article, _) => article.toJson(),
         );
-
-    if (categories.isNotEmpty) {
-      query = query.where('category', whereIn: categories);
-    }
-
-    return query;
   }
 
   Future<void> registerUser(

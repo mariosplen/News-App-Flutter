@@ -1,7 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_news_app/models/articles.dart';
-import 'package:flutter_news_app/screens/navigation/bottom_navbar.dart';
+import 'package:flutter_news_app/navigation/bottom_navbar.dart';
+import 'package:flutter_news_app/screens/articles/article_screen/article_screen.dart';
 import 'package:flutter_news_app/services/firestore_service.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -45,7 +46,8 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                       child: IconButton(
                         onPressed: () {
                           FirestoreService().removeAllArticlesFromUser(userid);
-                          setState(() {});
+                          // Navigate back to the articles screen
+                          widget.onNewTabSelected(0);
                         },
                         icon: const Icon(Icons.delete),
                         iconSize: 30,
@@ -58,6 +60,31 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                   child: FutureBuilder(
                     future: FirestoreService().getUserFavorites(userid),
                     builder: (context, snapshot) {
+                      if (snapshot.hasData &&
+                          (snapshot.data as List<dynamic>).isEmpty) {
+                        return const Center(
+                            child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              'You have no favorite articles yet',
+                              style: TextStyle(
+                                fontSize: 24,
+                                letterSpacing: -0.3,
+                              ),
+                            ),
+                            SizedBox(height: 20),
+                            Text(
+                              'Go back to the articles screen and add some!',
+                              style: TextStyle(
+                                fontSize: 18,
+                                letterSpacing: -0.3,
+                              ),
+                            ),
+                          ],
+                        ));
+                      }
+
                       if (snapshot.hasData) {
                         List<Article> favArticles = Article.fromJsonListDynamic(
                             snapshot.data as List<dynamic>);
@@ -107,6 +134,15 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                                     overflow: TextOverflow.ellipsis,
                                     maxLines: 3,
                                   ),
+                                  onTap: () {
+                                    Navigator.of(context)
+                                        .push(MaterialPageRoute(
+                                      builder: (context) =>
+                                          ArticleDetailsScreen(
+                                        article: article,
+                                      ),
+                                    ));
+                                  },
                                 ),
                               ),
                             );

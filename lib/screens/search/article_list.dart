@@ -15,7 +15,7 @@ class ArticleListBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FirestoreQueryBuilder<Article>(
-      pageSize: 3,
+      pageSize: 4,
       query: query,
       builder: (context, snapshot, _) {
         if (snapshot.isFetching) {

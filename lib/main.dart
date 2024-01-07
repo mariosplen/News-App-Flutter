@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_news_app/firebase_options.dart';
 import 'package:flutter_news_app/screens/auth/auth.dart';
 import 'package:flutter_news_app/screens/auth/splash.dart';
-import 'package:flutter_news_app/screens/navigation/navigation.dart';
+import 'package:flutter_news_app/navigation/navigation.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

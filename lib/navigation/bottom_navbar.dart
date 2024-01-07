@@ -17,7 +17,7 @@ class BottomNavbar extends StatelessWidget {
       items: const [
         BottomNavigationBarItem(
           icon: Icon(Icons.article_rounded),
-          label: 'Search',
+          label: 'Articles',
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.favorite_rounded),
