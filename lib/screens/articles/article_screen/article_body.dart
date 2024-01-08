@@ -38,7 +38,7 @@ class NewsBody extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               Text(
-                article.title,
+                article.description,
                 style: Theme.of(context)
                     .textTheme
                     .headlineSmall!

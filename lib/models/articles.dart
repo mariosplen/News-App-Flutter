@@ -5,6 +5,8 @@ class Article {
     required this.imageUrl,
     required this.category,
     required this.date,
+    required this.url,
+    required this.description,
   });
 
   final String title;
@@ -12,12 +14,16 @@ class Article {
   final String imageUrl;
   final String category;
   final String date;
+  final String url;
+  final String description;
 
   Article.fromJson(Map<String, dynamic> json)
       : title = json['title'] as String,
         content = json['content'] as String,
         imageUrl = json['image_url'] as String,
         date = json['date'] as String,
+        url = json['url'] as String,
+        description = json['description'] as String,
         category = json['category'] as String;
 
   Map<String, dynamic> toJson() {
@@ -26,6 +32,8 @@ class Article {
       'content': content,
       'image_url': imageUrl,
       'date': date,
+      'url': url,
+      'description': description,
       'category': category,
     };
   }
@@ -44,6 +52,8 @@ class Article {
       content.hashCode ^
       imageUrl.hashCode ^
       date.hashCode ^
+      url.hashCode ^
+      description.hashCode ^
       category.hashCode;
 
   @override
@@ -53,6 +63,8 @@ class Article {
           title == other.title &&
           content == other.content &&
           imageUrl == other.imageUrl &&
+          url == other.url &&
+          description == other.description &&
           date == other.date &&
           category == other.category;
 }

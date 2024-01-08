@@ -87,7 +87,7 @@ class ArticleDetailsScreen extends StatelessWidget {
                 ),
               ),
               onPressed: () async {
-                if (!await launchUrl(Uri.parse(article.imageUrl))) {
+                if (!await launchUrl(Uri.parse(article.url))) {
                   throw Exception('Could not launch ');
                 }
               },
@@ -129,14 +129,14 @@ class FavButton extends StatelessWidget {
             isFavorite: favArticles.contains(article),
             valueChanged: (isFavorited) {
               // Notify the user that the article was added/removed from favorites
-              isFavorited
-                  ? ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Article added to favorites'),
-                        duration: Duration(seconds: 1),
-                      ),
-                    )
-                  : null;
+              if (isFavorited) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Article added to favorites'),
+                    duration: Duration(seconds: 1),
+                  ),
+                );
+              }
 
               isFavorited
                   ? FirestoreService().addArticleToFavorites(userID, article)
