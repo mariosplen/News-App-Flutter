@@ -63,26 +63,27 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                       if (snapshot.hasData &&
                           (snapshot.data as List<dynamic>).isEmpty) {
                         return const Center(
-                            child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Text(
-                              'You have no favorite articles yet',
-                              style: TextStyle(
-                                fontSize: 24,
-                                letterSpacing: -0.3,
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                'You have no favorite articles yet',
+                                style: TextStyle(
+                                  fontSize: 24,
+                                  letterSpacing: -0.3,
+                                ),
                               ),
-                            ),
-                            SizedBox(height: 20),
-                            Text(
-                              'Go back to the articles screen and add some!',
-                              style: TextStyle(
-                                fontSize: 18,
-                                letterSpacing: -0.3,
+                              SizedBox(height: 20),
+                              Text(
+                                'Go back to the articles screen and add some!',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  letterSpacing: -0.3,
+                                ),
                               ),
-                            ),
-                          ],
-                        ));
+                            ],
+                          ),
+                        );
                       }
 
                       if (snapshot.hasData) {
@@ -92,57 +93,65 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                           itemCount: favArticles.length,
                           itemBuilder: (context, index) {
                             var article = favArticles[index];
-                            return Dismissible(
-                              confirmDismiss: (_) {
-                                return showDialog(
-                                  context: context,
-                                  builder: (context) {
-                                    return AlertDialog(
-                                      title: const Text('Remove article?'),
-                                      content: const Text(
-                                          'Are you sure you want to remove this article from your favorites?'),
-                                      actions: [
-                                        TextButton(
-                                          onPressed: () {
-                                            Navigator.of(context).pop(true);
-                                          },
-                                          child: const Text('Yes'),
+                            return Padding(
+                              padding: const EdgeInsets.only(bottom: 12),
+                              child: Dismissible(
+                                confirmDismiss: (_) {
+                                  return showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return AlertDialog(
+                                        title: const Text('Remove article?'),
+                                        content: const Text(
+                                            'Are you sure you want to remove this article from your favorites?'),
+                                        actions: [
+                                          TextButton(
+                                            onPressed: () {
+                                              Navigator.of(context).pop(true);
+                                            },
+                                            child: const Text('Yes'),
+                                          ),
+                                          TextButton(
+                                            onPressed: () {
+                                              Navigator.of(context).pop(false);
+                                            },
+                                            child: const Text('No'),
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
+                                },
+                                onDismissed: (_) {
+                                  FirestoreService().removeArticleFromFavorites(
+                                      userid, article);
+                                },
+                                key: Key(article.toString()),
+                                child: Card(
+                                  child: SizedBox(
+                                    height: 90,
+                                    child: Center(
+                                      child: ListTile(
+                                        leading: Image.network(
+                                          article.imageUrl,
                                         ),
-                                        TextButton(
-                                          onPressed: () {
-                                            Navigator.of(context).pop(false);
-                                          },
-                                          child: const Text('No'),
+                                        title: Text(
+                                          article.title,
+                                          overflow: TextOverflow.ellipsis,
+                                          maxLines: 3,
                                         ),
-                                      ],
-                                    );
-                                  },
-                                );
-                              },
-                              onDismissed: (_) {
-                                FirestoreService().removeArticleFromFavorites(
-                                    userid, article);
-                              },
-                              key: Key(article.toString()),
-                              child: Card(
-                                child: ListTile(
-                                  leading: Image.network(
-                                    article.imageUrl,
-                                  ),
-                                  title: Text(
-                                    article.title,
-                                    overflow: TextOverflow.ellipsis,
-                                    maxLines: 3,
-                                  ),
-                                  onTap: () {
-                                    Navigator.of(context)
-                                        .push(MaterialPageRoute(
-                                      builder: (context) =>
-                                          ArticleDetailsScreen(
-                                        article: article,
+                                        onTap: () {
+                                          Navigator.of(context)
+                                              .push(MaterialPageRoute(
+                                            builder: (context) =>
+                                                ArticleDetailsScreen(
+                                              article: article,
+                                            ),
+                                          ));
+                                        },
                                       ),
-                                    ));
-                                  },
+                                    ),
+                                  ),
                                 ),
                               ),
                             );
