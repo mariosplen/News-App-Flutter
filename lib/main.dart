@@ -14,8 +14,7 @@ extension Log on Object {
 }
 
 void main() async {
-// Set the status bar color to blue
-  // Set the status bar color to blue
+  // Fixes android grey status bar
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
   ));

@@ -106,9 +106,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               ),
                             ),
                           ),
-                          Align(
-                            alignment: Alignment.centerRight,
-                            child: TextButton.icon(
+                          if (userData!.favoriteArticles.isNotEmpty)
+                            Align(
+                              alignment: Alignment.centerRight,
+                              child: TextButton.icon(
                                 onPressed: () {
                                   showDialog(
                                     context: context,
@@ -148,8 +149,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 label: Text(
                                   "Clear All",
                                   style: TextStyle(color: Color(0XFF8D3F8A)),
-                                )),
-                          )
+                                ),
+                              ),
+                            )
                         ],
                       ),
                     ],

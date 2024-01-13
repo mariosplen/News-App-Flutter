@@ -2,6 +2,8 @@ import 'dart:math';
 
 import 'package:basic_utils/basic_utils.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_news_app/main.dart';
 import 'package:flutter_news_app/models/articles.dart';
 import 'package:flutter_news_app/models/categories.dart';
 import 'package:flutter_news_app/models/users.dart';
@@ -80,8 +82,21 @@ class FirestoreService {
   }
 
   Future<UserData> getUser(String uid) async {
-    final user = await _firestore.collection(usersTable).doc(uid).get();
-    return UserData.fromJson(user.data()!);
+    try {
+      final user = await _firestore.collection(usersTable).doc(uid).get();
+      return UserData.fromJson(user.data()!);
+    } catch (e) {
+      // If user doesn't exist in firestore, sign out
+      e.log();
+      FirebaseAuth.instance.signOut();
+    }
+    // If user doesn't exist in firestore, return empty user
+    return UserData(
+        name: '',
+        email: '',
+        avatarUrl: '',
+        favoriteArticles: [],
+        openedArticles: []);
   }
 
   Future<void> removeAllArticlesFromUser(String uid) async {
