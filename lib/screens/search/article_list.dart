@@ -25,6 +25,14 @@ class ArticleListBuilder extends StatelessWidget {
           article: article,
         );
       },
+      emptyBuilder: (context) {
+        return Center(
+          child: Text(
+            'No articles found',
+            style: Theme.of(context).textTheme.titleLarge,
+          ),
+        );
+      },
       errorBuilder: (context, error, stackTrace) {
         error.log();
         return Center(

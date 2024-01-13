@@ -110,9 +110,36 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             alignment: Alignment.centerRight,
                             child: TextButton.icon(
                                 onPressed: () {
-                                  FirestoreService()
-                                      .removeAllArticlesFromUser(userid);
-                                  setState(() {});
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return AlertDialog(
+                                        title: const Text('Clear all?'),
+                                        content: const Text(
+                                            'Are you sure you want to clear all your favorite articles?'),
+                                        actions: [
+                                          TextButton(
+                                            onPressed: () {
+                                              Navigator.of(context).pop(true);
+                                            },
+                                            child: const Text('Yes'),
+                                          ),
+                                          TextButton(
+                                            onPressed: () {
+                                              Navigator.of(context).pop(false);
+                                            },
+                                            child: const Text('No'),
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  ).then((value) async {
+                                    if (value == true) {
+                                      FirestoreService()
+                                          .removeAllArticlesFromUser(userid);
+                                      setState(() {});
+                                    }
+                                  });
                                 },
                                 icon: Icon(
                                   Icons.delete,
