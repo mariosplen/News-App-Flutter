@@ -5,8 +5,10 @@ class Article {
     required this.imageUrl,
     required this.category,
     required this.date,
+    required this.publishDate,
     required this.url,
     required this.description,
+    required this.author,
   });
 
   final String title;
@@ -14,17 +16,21 @@ class Article {
   final String imageUrl;
   final String category;
   final String date;
+  final String publishDate;
   final String url;
   final String description;
+  final String author;
 
   Article.fromJson(Map<String, dynamic> json)
-      : title = json['title'] as String,
-        content = json['content'] as String,
-        imageUrl = json['image_url'] as String,
-        date = json['date'] as String,
-        url = json['url'] as String,
-        description = json['description'] as String,
-        category = json['category'] as String;
+      : title = json['title'].toString(),
+        content = json['content'].toString(),
+        imageUrl = json['image_url'].toString(),
+        date = json['date'].toString(),
+        publishDate = json['publish_date'].toString(),
+        url = json['url'].toString(),
+        author = json['author'].toString(),
+        description = json['description'].toString(),
+        category = json['category'].toString();
 
   Map<String, dynamic> toJson() {
     return {
@@ -32,6 +38,8 @@ class Article {
       'content': content,
       'image_url': imageUrl,
       'date': date,
+      'publish_date': publishDate,
+      'author': author,
       'url': url,
       'description': description,
       'category': category,
@@ -52,6 +60,8 @@ class Article {
       content.hashCode ^
       imageUrl.hashCode ^
       date.hashCode ^
+      publishDate.hashCode ^
+      author.hashCode ^
       url.hashCode ^
       description.hashCode ^
       category.hashCode;
@@ -64,7 +74,9 @@ class Article {
           content == other.content &&
           imageUrl == other.imageUrl &&
           url == other.url &&
+          author == other.author &&
           description == other.description &&
           date == other.date &&
+          publishDate == other.publishDate &&
           category == other.category;
 }

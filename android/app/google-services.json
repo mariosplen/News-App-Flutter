@@ -1,14 +1,13 @@
 {
   "project_info": {
-    "project_number": "259061766735",
-    "firebase_url": "https://flutter-news-app-c3502-default-rtdb.europe-west1.firebasedatabase.app",
-    "project_id": "flutter-news-app-c3502",
-    "storage_bucket": "flutter-news-app-c3502.appspot.com"
+    "project_number": "410682849338",
+    "project_id": "flutter-news-app-7d104",
+    "storage_bucket": "flutter-news-app-7d104.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:259061766735:android:8d7580f5192365171fe83a",
+        "mobilesdk_app_id": "1:410682849338:android:4d28dfa3f79bc04e415d03",
         "android_client_info": {
           "package_name": "com.example.flutter_news_app"
         }
@@ -16,45 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyA1UvTW7vCa9AIhRS9mOXt3N2AuRnygvTM"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": []
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:259061766735:android:418e30b2770793bb1fe83a",
-        "android_client_info": {
-          "package_name": "com.example.pagination_bloc"
-        }
-      },
-      "oauth_client": [],
-      "api_key": [
-        {
-          "current_key": "AIzaSyA1UvTW7vCa9AIhRS9mOXt3N2AuRnygvTM"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": []
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:259061766735:android:c433caf5789d9f051fe83a",
-        "android_client_info": {
-          "package_name": "gr.deloitte.mplenchidis.flutter_news_app"
-        }
-      },
-      "oauth_client": [],
-      "api_key": [
-        {
-          "current_key": "AIzaSyA1UvTW7vCa9AIhRS9mOXt3N2AuRnygvTM"
+          "current_key": "AIzaSyBqM8iQ17CI0kuOgHIXsLDgzqrXhrvSDTA"
         }
       ],
       "services": {

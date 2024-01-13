@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -5,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_news_app/screens/auth/logo.dart';
 import 'package:flutter_news_app/screens/auth/validators.dart';
 import 'package:flutter_news_app/services/firestore_service.dart';
-// import 'package:flutter_news_app/services/firestore_service.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key, required this.toggleAuthScreen});
@@ -59,7 +60,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
         password: _password,
       );
 
-      await FirestoreService().registerUser(user.user!.uid, _name, _email, []);
+      Random random = Random();
+      int randomIndex = random.nextInt(100);
+
+      await FirestoreService().registerUser(user.user!.uid, _name, _email, [],
+          'https://picsum.photos/id/$randomIndex/900/900');
 
       // showAlert('New user ${user.user!.email} created');
     } catch (e) {

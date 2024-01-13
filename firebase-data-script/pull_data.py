@@ -20,12 +20,14 @@ firestore_client = firestore.client()
 documents = firestore_client.collection(collection_name).stream()
 
 # Prepare Data For JSON export
-data = {}
+data = []
 for doc in documents:
-    data[doc.id] = doc.to_dict()
+    data.append(doc.to_dict())
+
 
 # Write Data To A JSON File
-with open(key_file_path, "w") as file:
+with open(export_path, "w") as file:
     json.dump(data, file, indent=4)
 
-print(f"Data has been exported to {key_file_path}")
+
+print(f"Data has been exported to {export_path}")

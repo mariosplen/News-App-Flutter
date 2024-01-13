@@ -1,8 +1,10 @@
 import 'package:basic_utils/basic_utils.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_news_app/models/articles.dart';
 import 'package:flutter_news_app/screens/articles/article_screen/article_screen.dart';
+import 'package:flutter_news_app/services/firestore_service.dart';
 import 'package:flutter_news_app/widgets/custom_chip.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -57,6 +59,7 @@ class ArticleListItem extends StatelessWidget {
                         child: Center(
                           child: Text(
                             article.title,
+                            textAlign: TextAlign.start,
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 18,
@@ -107,6 +110,10 @@ class ArticleListItem extends StatelessWidget {
                           article: article,
                         ),
                       ),
+                    );
+                    FirestoreService().addArticleToOpened(
+                      FirebaseAuth.instance.currentUser!.uid,
+                      article,
                     );
                   },
                 ),

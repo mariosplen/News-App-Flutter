@@ -10,6 +10,7 @@ class FiltersDrawer extends StatelessWidget {
     required this.onSelectedCategoriesChanged,
     required this.name,
     required this.email,
+    required this.imageUrl,
     required this.onSignOut,
   });
 
@@ -17,6 +18,7 @@ class FiltersDrawer extends StatelessWidget {
   final Function onSelectedCategoriesChanged;
   final String name;
   final String email;
+  final String imageUrl;
   final VoidCallback onSignOut;
 
   static const padding = EdgeInsets.symmetric(horizontal: 20);
@@ -30,6 +32,7 @@ class FiltersDrawer extends StatelessWidget {
               buildHeader(
                 context,
                 name: name,
+                imageUrl: imageUrl,
                 email: email,
               ),
               Container(
@@ -63,11 +66,10 @@ class FiltersDrawer extends StatelessWidget {
         ),
       );
 
-  Widget buildHeader(
-    BuildContext context, {
-    required String name,
-    required String email,
-  }) =>
+  Widget buildHeader(BuildContext context,
+          {required String name,
+          required String email,
+          required String imageUrl}) =>
       Container(
         padding: padding.add(const EdgeInsets.symmetric(vertical: 40)),
         child: Row(
@@ -76,6 +78,11 @@ class FiltersDrawer extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                CircleAvatar(
+                  radius: 25,
+                  backgroundImage: NetworkImage(imageUrl),
+                ),
+                const SizedBox(height: 15),
                 Text(
                   name,
                   style: const TextStyle(fontSize: 20, color: Colors.white),

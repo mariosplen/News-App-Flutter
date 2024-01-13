@@ -17,7 +17,10 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      return web;
+      throw UnsupportedError(
+        'DefaultFirebaseOptions have not been configured for web - '
+        'you can reconfigure this by running the FlutterFire CLI again.',
+      );
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -25,7 +28,10 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        return macos;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for macos - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -43,42 +49,20 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyDylL0epX7sw528Yp0EuDiKf4_rQKsAyT0',
-    appId: '1:259061766735:web:8d30fa885b6d97b91fe83a',
-    messagingSenderId: '259061766735',
-    projectId: 'flutter-news-app-c3502',
-    authDomain: 'flutter-news-app-c3502.firebaseapp.com',
-    databaseURL: 'https://flutter-news-app-c3502-default-rtdb.europe-west1.firebasedatabase.app',
-    storageBucket: 'flutter-news-app-c3502.appspot.com',
-  );
-
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyA1UvTW7vCa9AIhRS9mOXt3N2AuRnygvTM',
-    appId: '1:259061766735:android:8d7580f5192365171fe83a',
-    messagingSenderId: '259061766735',
-    projectId: 'flutter-news-app-c3502',
-    databaseURL: 'https://flutter-news-app-c3502-default-rtdb.europe-west1.firebasedatabase.app',
-    storageBucket: 'flutter-news-app-c3502.appspot.com',
+    apiKey: 'AIzaSyBqM8iQ17CI0kuOgHIXsLDgzqrXhrvSDTA',
+    appId: '1:410682849338:android:4d28dfa3f79bc04e415d03',
+    messagingSenderId: '410682849338',
+    projectId: 'flutter-news-app-7d104',
+    storageBucket: 'flutter-news-app-7d104.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyDYYqPsc77OJwwYbfEv76A0hpKLnE5GLKY',
-    appId: '1:259061766735:ios:3963ce08a399d56b1fe83a',
-    messagingSenderId: '259061766735',
-    projectId: 'flutter-news-app-c3502',
-    databaseURL: 'https://flutter-news-app-c3502-default-rtdb.europe-west1.firebasedatabase.app',
-    storageBucket: 'flutter-news-app-c3502.appspot.com',
+    apiKey: 'AIzaSyCpCMwQk73PjnBAAdW-8lvQCymkivXmW1U',
+    appId: '1:410682849338:ios:30fabd74c99ccaea415d03',
+    messagingSenderId: '410682849338',
+    projectId: 'flutter-news-app-7d104',
+    storageBucket: 'flutter-news-app-7d104.appspot.com',
     iosBundleId: 'com.example.flutterNewsApp',
-  );
-
-  static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyDYYqPsc77OJwwYbfEv76A0hpKLnE5GLKY',
-    appId: '1:259061766735:ios:ff0d0efd0555553d1fe83a',
-    messagingSenderId: '259061766735',
-    projectId: 'flutter-news-app-c3502',
-    databaseURL: 'https://flutter-news-app-c3502-default-rtdb.europe-west1.firebasedatabase.app',
-    storageBucket: 'flutter-news-app-c3502.appspot.com',
-    iosBundleId: 'com.example.flutterNewsApp.RunnerTests',
   );
 }

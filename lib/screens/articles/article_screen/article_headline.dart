@@ -66,6 +66,15 @@ class NewsHeadline extends StatelessWidget {
                         height: 1.25,
                       ),
                 ),
+                // article author
+                const SizedBox(height: 10),
+                Text(
+                  article.author,
+                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                        color: Colors.white,
+                        height: 1.25,
+                      ),
+                ),
               ],
             ),
           ),

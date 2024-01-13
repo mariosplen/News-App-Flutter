@@ -20,13 +20,10 @@ dependencies:
   firebase_database: ^10.4.0
   cloud_firestore: ^4.14.0
   favorite_button: ^0.0.4
-  firebase_ui_firestore:
-    git:
-      url: https://github.com/Codelessly/firebaseui-flutter.git
-      path: packages/firebase_ui_firestore
-      ref: fix-239
   easy_search_bar: ^2.5.0
   url_launcher: ^6.2.2
+  firebase_ui_firestore: ^1.6.1
+  choice: ^2.3.0
 
 dev_dependencies:
   flutter_test:

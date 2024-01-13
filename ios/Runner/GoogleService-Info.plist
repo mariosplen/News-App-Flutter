@@ -3,17 +3,17 @@
 <plist version="1.0">
 <dict>
 	<key>API_KEY</key>
-	<string>AIzaSyDYYqPsc77OJwwYbfEv76A0hpKLnE5GLKY</string>
+	<string>AIzaSyCpCMwQk73PjnBAAdW-8lvQCymkivXmW1U</string>
 	<key>GCM_SENDER_ID</key>
-	<string>259061766735</string>
+	<string>410682849338</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.example.flutterNewsApp</string>
 	<key>PROJECT_ID</key>
-	<string>flutter-news-app-c3502</string>
+	<string>flutter-news-app-7d104</string>
 	<key>STORAGE_BUCKET</key>
-	<string>flutter-news-app-c3502.appspot.com</string>
+	<string>flutter-news-app-7d104.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -25,8 +25,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:259061766735:ios:3963ce08a399d56b1fe83a</string>
-	<key>DATABASE_URL</key>
-	<string>https://flutter-news-app-c3502-default-rtdb.europe-west1.firebasedatabase.app</string>
+	<string>1:410682849338:ios:30fabd74c99ccaea415d03</string>
 </dict>
 </plist>

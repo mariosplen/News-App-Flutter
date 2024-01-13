@@ -6,6 +6,12 @@ import 'package:flutter_news_app/screens/auth/auth.dart';
 import 'package:flutter_news_app/screens/auth/splash.dart';
 import 'package:flutter_news_app/navigation/navigation.dart';
 
+import 'dart:developer' as devtools show log;
+
+extension Log on Object {
+  void log() => devtools.log(toString());
+}
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -25,6 +31,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
             seedColor: const Color.fromARGB(255, 0, 119, 255)),
+        // seedColor: Color(0xFF8D3F8A)),
+        // seedColor: Color.fromARGB(255, 252, 223, 166)),
         useMaterial3: true,
       ),
       home: StreamBuilder(

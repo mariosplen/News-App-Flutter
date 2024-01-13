@@ -21,8 +21,8 @@ with open(edited_data_path, "r") as file:
 print("Data is being pushed to Firestore...")
 
 # Update Firestore with edited data
-for doc_id, edited_doc in edited_data.items():
-    doc_ref = firestore_client.collection(collection_name).document(doc_id)
-    doc_ref.set(edited_doc)
+for article in edited_data:
+    firestore_client.collection(collection_name).add(article)
+
 
 print("Edited data has been pushed to Firestore.")

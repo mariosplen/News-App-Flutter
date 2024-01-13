@@ -1,4 +1,4 @@
-import 'package:easy_search_bar/easy_search_bar.dart';
+import 'package:choice/choice.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_news_app/screens/drawer/filters_drawer.dart';
@@ -6,7 +6,8 @@ import 'package:flutter_news_app/navigation/bottom_navbar.dart';
 import 'package:flutter_news_app/services/firestore_service.dart';
 
 import 'package:flutter_news_app/screens/search/article_list.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_news_app/widgets/nested_scroll_search_view.dart';
+import 'package:flutter_news_app/widgets/search_appbar.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key, required this.onNewTabSelected});
@@ -21,47 +22,40 @@ class _SearchScreenState extends State<SearchScreen> {
   final List<String> _selectedCategories = [];
   String _searchQuery = '';
 
+  final List<ChoiceType> sortChoices = [
+    ChoiceType('Latest', 'publish_date'),
+    ChoiceType('By Title', 'title'),
+    ChoiceType('By Author', 'author'),
+  ];
+  String _selectedSortBy = 'publish_date';
+
+  void _setNewCategories(newCategory) {
+    setState(() {
+      _selectedCategories.contains(newCategory)
+          ? _selectedCategories.remove(newCategory)
+          : _selectedCategories.add(newCategory);
+    });
+  }
+
+  void _setNewSortBy(String? value) {
+    setState(() => _selectedSortBy = value!);
+  }
+
+  void _setNewSearchQuery(String value) {
+    if (value.trim() != _searchQuery) {
+      setState(() {
+        _searchQuery = value.trim();
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     // print all the theme colors
-
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.onInverseSurface,
-      appBar: EasySearchBar(
-        elevation: 2,
-        showClearSearchIcon: false,
-        iconTheme: IconThemeData(
-          color: Theme.of(context).colorScheme.onSurface,
-          size: 28,
-        ),
-        searchBackIconTheme: IconThemeData(
-          color: Theme.of(context).colorScheme.onSurface,
-          size: 28,
-        ),
-        onSearch: (val) {
-          if (val.trim() != _searchQuery) {
-            setState(() {
-              _searchQuery = val.trim();
-              _selectedCategories.clear();
-            });
-          }
-        },
-        animationDuration: const Duration(milliseconds: 220),
-        backgroundColor: Theme.of(context).colorScheme.surface,
-        searchTextKeyboardType: TextInputType.name,
-        searchCursorColor: Theme.of(context).colorScheme.surfaceTint,
-        title: Padding(
-          padding: const EdgeInsets.only(right: 19),
-          child: Text(
-            'News App',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Theme.of(context).colorScheme.onSurface,
-              fontFamily: GoogleFonts.texturina().fontFamily,
-              fontSize: 28,
-            ),
-          ),
-        ),
+      appBar: SearchTopBar(
+        onSearch: _setNewSearchQuery,
       ),
       bottomNavigationBar: BottomNavbar(
         selected: 0,
@@ -74,27 +68,47 @@ class _SearchScreenState extends State<SearchScreen> {
           if (snapshot.hasData) {
             return FiltersDrawer(
               selectedCategories: _selectedCategories,
-              onSelectedCategoriesChanged: _onTappedNewCategory,
+              onSelectedCategoriesChanged: _setNewCategories,
               onSignOut: FirebaseAuth.instance.signOut,
               name: snapshot.data!.name,
+              imageUrl: snapshot.data!.avatarUrl,
               email: snapshot.data!.email,
             );
           }
           return const SizedBox.shrink();
         },
       ),
-      body: ArticleListBuilder(
-        query:
-            FirestoreService().getArticles(_selectedCategories, _searchQuery),
+      body: NestedScrollSearchView(
+        header: _searchQuery.isEmpty
+            ? Choice<String>.inline(
+                clearable: true,
+                value: ChoiceSingle.value(_selectedSortBy),
+                onChanged: ChoiceSingle.onChanged(_setNewSortBy),
+                itemCount: sortChoices.length,
+                itemBuilder: (state, i) {
+                  final choice = sortChoices[i];
+                  return ChoiceChip(
+                    selected: state.selected(choice.value),
+                    onSelected: state.onSelected(choice.value),
+                    label: Text(choice.title),
+                  );
+                },
+                listBuilder: ChoiceList.createScrollable(
+                  spacing: 10,
+                ),
+              )
+            : null,
+        body: ArticleListBuilder(
+          query: FirestoreService()
+              .getArticles(_selectedCategories, _searchQuery, _selectedSortBy),
+        ),
       ),
     );
   }
+}
 
-  _onTappedNewCategory(newCategory) {
-    setState(() {
-      _selectedCategories.contains(newCategory)
-          ? _selectedCategories.remove(newCategory)
-          : _selectedCategories.add(newCategory);
-    });
-  }
+class ChoiceType {
+  final String title;
+  final String value;
+  const ChoiceType(this.title, this.value);
 }
