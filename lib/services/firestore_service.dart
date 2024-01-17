@@ -38,7 +38,7 @@ class FirestoreService {
 
     return _firestore
         .collection(articlesTable)
-        .orderBy(orderBy)
+        .orderBy(orderBy, descending: orderBy == 'publish_date')
         .where('category', whereIn: selectedCateg)
         .withConverter<Article>(
           fromFirestore: (snapshots, _) => Article.fromJson(snapshots.data()!),

@@ -49,26 +49,24 @@ class ArticleListItem extends StatelessWidget {
                     ),
                   ),
                   Center(
-                    child: Padding(
+                    child: Container(
+                      height: 80,
                       padding: const EdgeInsets.symmetric(
                         horizontal: 12.0,
                         vertical: 12.0,
                       ),
-                      child: SizedBox(
-                        height: 60,
-                        child: Center(
-                          child: Text(
-                            article.title,
-                            textAlign: TextAlign.start,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18,
-                              fontFamily: GoogleFonts.lora().fontFamily,
-                            ),
-                            softWrap: true,
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 2,
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          article.title,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
+                            fontFamily: GoogleFonts.lora().fontFamily,
                           ),
+                          softWrap: true,
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 2,
                         ),
                       ),
                     ),

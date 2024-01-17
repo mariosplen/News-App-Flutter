@@ -4,7 +4,6 @@ class Article {
     required this.content,
     required this.imageUrl,
     required this.category,
-    required this.date,
     required this.publishDate,
     required this.url,
     required this.description,
@@ -15,7 +14,6 @@ class Article {
   final String content;
   final String imageUrl;
   final String category;
-  final String date;
   final String publishDate;
   final String url;
   final String description;
@@ -25,7 +23,6 @@ class Article {
       : title = json['title'].toString(),
         content = json['content'].toString(),
         imageUrl = json['image_url'].toString(),
-        date = json['date'].toString(),
         publishDate = json['publish_date'].toString(),
         url = json['url'].toString(),
         author = json['author'].toString(),
@@ -37,7 +34,6 @@ class Article {
       'title': title,
       'content': content,
       'image_url': imageUrl,
-      'date': date,
       'publish_date': publishDate,
       'author': author,
       'url': url,
@@ -55,16 +51,16 @@ class Article {
   }
 
   @override
-  int get hashCode =>
-      title.hashCode ^
-      content.hashCode ^
-      imageUrl.hashCode ^
-      date.hashCode ^
-      publishDate.hashCode ^
-      author.hashCode ^
-      url.hashCode ^
-      description.hashCode ^
-      category.hashCode;
+  int get hashCode => Object.hash(
+        title,
+        content,
+        imageUrl,
+        url,
+        author,
+        description,
+        publishDate,
+        category,
+      );
 
   @override
   bool operator ==(Object other) =>
@@ -76,7 +72,6 @@ class Article {
           url == other.url &&
           author == other.author &&
           description == other.description &&
-          date == other.date &&
           publishDate == other.publishDate &&
           category == other.category;
 }

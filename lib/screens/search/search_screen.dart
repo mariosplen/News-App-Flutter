@@ -81,7 +81,7 @@ class _SearchScreenState extends State<SearchScreen> {
       body: NestedScrollSearchView(
         header: _searchQuery.isEmpty
             ? Choice<String>.inline(
-                clearable: true,
+                clearable: false,
                 value: ChoiceSingle.value(_selectedSortBy),
                 onChanged: ChoiceSingle.onChanged(_setNewSortBy),
                 itemCount: sortChoices.length,

@@ -22,7 +22,6 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-
   runApp(const MyApp());
 }
 
@@ -36,8 +35,6 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
             seedColor: const Color.fromARGB(255, 0, 119, 255)),
-        // seedColor: Color(0xFF8D3F8A)),
-        // seedColor: Color.fromARGB(255, 252, 223, 166)),
         useMaterial3: true,
       ),
       home: StreamBuilder(

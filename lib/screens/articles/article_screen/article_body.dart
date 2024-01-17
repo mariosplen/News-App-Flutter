@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_news_app/models/articles.dart';
 import 'package:flutter_news_app/widgets/custom_chip.dart';
+import 'package:intl/intl.dart';
 
 class NewsBody extends StatelessWidget {
   const NewsBody(this.article, {super.key});
@@ -9,6 +10,11 @@ class NewsBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Date in firestore formated as "2023-01-02 08:39"
+    DateTime articleDate =
+        DateFormat("yyyy-MM-DD HH:mm").parse(article.publishDate);
+    var formattedDate = DateFormat.yMMMMd().format(articleDate);
+
     return Expanded(
       child: SingleChildScrollView(
         child: Container(
@@ -33,7 +39,7 @@ class NewsBody extends StatelessWidget {
                     color: Theme.of(context).colorScheme.secondary,
                   ),
                   const SizedBox(width: 10),
-                  Text(article.date),
+                  Text(formattedDate),
                 ],
               ),
               const SizedBox(height: 20),
