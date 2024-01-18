@@ -1,47 +1,166 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_ui_firestore/firebase_ui_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_news_app/main.dart';
-import 'package:flutter_news_app/models/articles.dart';
+import 'package:flutter_news_app/models/response.dart';
 import 'package:flutter_news_app/screens/articles/article_list_item.dart';
+import 'package:flutter_news_app/models/article.dart';
+import 'package:flutter_news_app/services/news_api.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
-class ArticleListBuilder extends StatelessWidget {
+final _newsApi = NewsAPI("6d8bada1099c494aaddd7c1bcd3495e3");
+
+// 6d8bada1099c494aaddd7c1bcd3495e3
+// faa1ad9af01e430080a083faff1662ad
+// d6c871ecf8864c6cb8c8b1a6c0986f39
+// e44d15833154444b8581d5c8cafdad79
+// 3f8355f804144f668489b9bfa6c2fc06
+// 1385e62298d74aaa8ae3f6061ed495b4
+// ec4ce44cbbc448ffa2965d39f939b81c
+
+class ArticleListBuilder extends StatefulWidget {
   const ArticleListBuilder({
     super.key,
-    required this.query,
+    required this.loadedArticles,
+    this.selectedCategory,
+    required this.searchQuery,
+    required this.selectedSortBy,
   });
 
-  final Query<Article> query;
+  final List<Article> loadedArticles;
+  final String? selectedCategory;
+  final String searchQuery;
+  final String selectedSortBy;
+
+  @override
+  State<ArticleListBuilder> createState() => _ArticleListBuilderState();
+}
+
+class _ArticleListBuilderState extends State<ArticleListBuilder> {
+  final _scrollController = ScrollController();
+
+  final pageSize = 10;
+  int _currentPage = 0;
+  ResponseModel? _responseData;
+  bool _isLoading = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _getArticles().then((value) {
+      _scrollController.addListener(_loadMoreData);
+    });
+  }
+
+  @override
+  void didUpdateWidget(covariant ArticleListBuilder oldWidget) {
+    _currentPage = 0;
+
+    _getArticles();
+    super.didUpdateWidget(oldWidget);
+  }
 
   @override
   Widget build(BuildContext context) {
-    return FirestoreListView(
-      pageSize: 4,
-      showFetchingIndicator: true,
-      query: query,
-      itemBuilder: (context, doc) {
-        final article = doc.data();
-        return ArticleListItem(
-          article: article,
-        );
-      },
-      emptyBuilder: (context) {
-        return Center(
-          child: Text(
-            'No articles found',
-            style: Theme.of(context).textTheme.titleLarge,
+    // No response from API yet
+    if (_responseData == null) {
+      return Center(
+        child: CircularProgressIndicator(
+          color: Theme.of(context).colorScheme.secondary,
+        ),
+      );
+    }
+    // Error response from API
+    if (_responseData!.status == "error") {
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(_responseData!.message!),
+          TextButton(
+            onPressed: _getArticles,
+            child: Text("Retry"),
           ),
-        );
-      },
-      errorBuilder: (context, error, stackTrace) {
-        error.log();
+        ],
+      );
+    }
+
+    // No articles found
+    if (_responseData!.status == "ok") {
+      if (_responseData!.totalResults == 0) {
         return Center(
-          child: Text(
-            'Something went wrong, please check logs',
-            style: Theme.of(context).textTheme.titleLarge,
-          ),
+          child: Text("No articles found"),
         );
-      },
+      }
+    }
+    // Articles found
+    if (_responseData!.status == "ok") {
+      if (widget.loadedArticles.length > 0) {
+        return ListView.builder(
+          itemCount: widget.loadedArticles.length,
+          physics: const AlwaysScrollableScrollPhysics(),
+          shrinkWrap: false,
+          controller: _scrollController,
+          itemBuilder: (context, index) {
+            final article = widget.loadedArticles[index];
+
+            return Column(
+              children: [
+                ArticleListItem(article: article),
+                if (index == widget.loadedArticles.length - 1 && _isLoading)
+                  const Padding(
+                      padding: EdgeInsets.all(10.0),
+                      child: SpinKitThreeBounce(
+                        color: Colors.blue,
+                        size: 20.0,
+                      )),
+              ],
+            );
+          },
+        );
+      }
+    }
+    // Loading articles
+    return Center(
+      child: CircularProgressIndicator(
+        color: Theme.of(context).colorScheme.secondary,
+      ),
     );
+  }
+
+  void _loadMoreData() {
+    setState(() {
+      _isLoading = true;
+    });
+    if (_scrollController.position.pixels ==
+            _scrollController.position.maxScrollExtent &&
+        _responseData != null &&
+        widget.loadedArticles.length < _responseData!.totalResults!) {
+      _getArticles();
+    }
+  }
+
+  Future<void> _getArticles() async {
+    _currentPage++;
+    final responseModel = await _newsApi.getArticles(
+        sortBy: widget.selectedSortBy,
+        query: widget.searchQuery,
+        category: widget.selectedCategory,
+        pageSize: pageSize,
+        page: _currentPage);
+
+    if (responseModel.status != "ok") {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(responseModel.message!),
+        ),
+      );
+      setState(() {
+        widget.loadedArticles.clear();
+        _responseData = responseModel;
+      });
+      return;
+    }
+    setState(() {
+      widget.loadedArticles.addAll(responseModel.articles!);
+      _responseData = responseModel;
+      _isLoading = false;
+    });
   }
 }

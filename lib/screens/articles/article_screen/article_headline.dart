@@ -1,6 +1,5 @@
-import 'package:basic_utils/basic_utils.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_news_app/models/articles.dart';
+import 'package:flutter_news_app/models/article.dart';
 import 'package:flutter_news_app/widgets/custom_chip.dart';
 
 class NewsHeadline extends StatelessWidget {
@@ -16,7 +15,7 @@ class NewsHeadline extends StatelessWidget {
           width: double.infinity,
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: NetworkImage(article.imageUrl),
+              image: NetworkImage(article.urlToImage),
               fit: BoxFit.cover,
             ),
           ),
@@ -46,7 +45,7 @@ class NewsHeadline extends StatelessWidget {
                       Theme.of(context).colorScheme.outline.withOpacity(0.9),
                   children: [
                     Text(
-                      StringUtils.capitalize(article.category),
+                      article.source.name,
                       style: const TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,

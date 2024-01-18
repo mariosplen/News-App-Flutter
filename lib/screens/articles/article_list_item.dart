@@ -1,12 +1,11 @@
-import 'package:basic_utils/basic_utils.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_news_app/models/articles.dart';
 import 'package:flutter_news_app/screens/articles/article_screen/article_screen.dart';
 import 'package:flutter_news_app/services/firestore_service.dart';
+import 'package:flutter_news_app/models/article.dart';
 import 'package:flutter_news_app/widgets/custom_chip.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 /// List item representing a single Article
 class ArticleListItem extends StatelessWidget {
@@ -41,11 +40,7 @@ class ArticleListItem extends StatelessWidget {
                         topLeft: Radius.circular(15),
                         topRight: Radius.circular(15),
                       ),
-                      child: CachedNetworkImage(
-                        imageUrl: article.imageUrl,
-                        fit: BoxFit.cover,
-                        width: double.infinity,
-                      ),
+                      child: _loadImage(article.urlToImage),
                     ),
                   ),
                   Center(
@@ -85,7 +80,7 @@ class ArticleListItem extends StatelessWidget {
                       Theme.of(context).colorScheme.tertiary.withOpacity(0.85),
                   children: [
                     Text(
-                      StringUtils.capitalize(article.category),
+                      article.source.name,
                       style: TextStyle(
                         fontSize: 15,
                         fontFamily: GoogleFonts.ubuntu().fontFamily,
@@ -122,4 +117,24 @@ class ArticleListItem extends StatelessWidget {
       ),
     );
   }
+}
+
+Image _placeHolderImage = Image.asset(
+  'assets/images/placeholder.png',
+  fit: BoxFit.cover,
+  width: double.infinity,
+);
+
+Widget _loadImage(String urlToImage) {
+  if (urlToImage == "null") {
+    return _placeHolderImage;
+  }
+  return FadeInImage.memoryNetwork(
+    fit: BoxFit.cover,
+    width: double.infinity,
+    image: urlToImage,
+    placeholder: kTransparentImage,
+    imageErrorBuilder: (context, error, stackTrace) => _placeHolderImage,
+    placeholderErrorBuilder: (context, error, stackTrace) => _placeHolderImage,
+  );
 }

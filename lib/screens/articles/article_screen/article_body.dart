@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_news_app/models/articles.dart';
+import 'package:flutter_news_app/models/article.dart';
 import 'package:flutter_news_app/widgets/custom_chip.dart';
 import 'package:intl/intl.dart';
 
@@ -10,9 +10,9 @@ class NewsBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Date in firestore formated as "2023-01-02 08:39"
     DateTime articleDate =
-        DateFormat("yyyy-MM-DD HH:mm").parse(article.publishDate);
+        DateFormat("yyyy-MM-DDTHH:mm:s").parse(article.publishedAt);
+
     var formattedDate = DateFormat.yMMMMd().format(articleDate);
 
     return Expanded(

@@ -1,50 +1,16 @@
 import 'dart:math';
 
-import 'package:basic_utils/basic_utils.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_news_app/main.dart';
-import 'package:flutter_news_app/models/articles.dart';
-import 'package:flutter_news_app/models/categories.dart';
 import 'package:flutter_news_app/models/users.dart';
+import 'package:flutter_news_app/models/article.dart';
 
 const String articlesTable = 'articles';
 const String usersTable = 'users';
 
 class FirestoreService {
   final _firestore = FirebaseFirestore.instance;
-
-  Query<Article> getArticles(
-      List<String> selectedCateg, String searchQuery, String orderBy) {
-    // if no category is selected then select all categories
-    if (selectedCateg.isEmpty) {
-      selectedCateg = categories.map((e) => e.name).toList();
-    }
-
-    // if search is provided
-    if (searchQuery.isNotEmpty) {
-      final search = StringUtils.capitalize(searchQuery);
-      return _firestore
-          .collection(articlesTable)
-          .where('category', whereIn: selectedCateg)
-          .where('title', isGreaterThanOrEqualTo: search)
-          .where('title', isLessThan: '${search}z')
-          .withConverter<Article>(
-            fromFirestore: (snapshots, _) =>
-                Article.fromJson(snapshots.data()!),
-            toFirestore: (article, _) => article.toJson(),
-          );
-    }
-
-    return _firestore
-        .collection(articlesTable)
-        .orderBy(orderBy, descending: orderBy == 'publish_date')
-        .where('category', whereIn: selectedCateg)
-        .withConverter<Article>(
-          fromFirestore: (snapshots, _) => Article.fromJson(snapshots.data()!),
-          toFirestore: (article, _) => article.toJson(),
-        );
-  }
 
   Future<void> setRandomAvatar(String uid) async {
     Random random = Random();

@@ -6,7 +6,6 @@ import 'package:flutter_news_app/navigation/bottom_navbar.dart';
 import 'package:flutter_news_app/services/firestore_service.dart';
 
 import 'package:flutter_news_app/screens/search/article_list.dart';
-import 'package:flutter_news_app/widgets/nested_scroll_search_view.dart';
 import 'package:flutter_news_app/widgets/search_appbar.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -19,21 +18,19 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
-  final List<String> _selectedCategories = [];
+  String? _selectedCategory;
   String _searchQuery = '';
 
   final List<ChoiceType> sortChoices = [
-    ChoiceType('Latest', 'publish_date'),
-    ChoiceType('By Title', 'title'),
-    ChoiceType('By Author', 'author'),
+    ChoiceType('Latest', 'publishedAt'),
+    ChoiceType('Most Popular', 'popularity'),
+    ChoiceType('Top Matches', 'relevancy'),
   ];
-  String _selectedSortBy = 'publish_date';
+  String _selectedSortBy = 'publishedAt';
 
   void _setNewCategories(newCategory) {
     setState(() {
-      _selectedCategories.contains(newCategory)
-          ? _selectedCategories.remove(newCategory)
-          : _selectedCategories.add(newCategory);
+      _selectedCategory = newCategory;
     });
   }
 
@@ -51,7 +48,6 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // print all the theme colors
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.onInverseSurface,
       appBar: SearchTopBar(
@@ -67,7 +63,7 @@ class _SearchScreenState extends State<SearchScreen> {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return FiltersDrawer(
-              selectedCategories: _selectedCategories,
+              selectedCategory: _selectedCategory,
               onSelectedCategoriesChanged: _setNewCategories,
               onSignOut: FirebaseAuth.instance.signOut,
               name: snapshot.data!.name,
@@ -78,30 +74,39 @@ class _SearchScreenState extends State<SearchScreen> {
           return const SizedBox.shrink();
         },
       ),
-      body: NestedScrollSearchView(
-        header: _searchQuery.isEmpty
-            ? Choice<String>.inline(
-                clearable: false,
-                value: ChoiceSingle.value(_selectedSortBy),
-                onChanged: ChoiceSingle.onChanged(_setNewSortBy),
-                itemCount: sortChoices.length,
-                itemBuilder: (state, i) {
-                  final choice = sortChoices[i];
-                  return ChoiceChip(
-                    selected: state.selected(choice.value),
-                    onSelected: state.onSelected(choice.value),
-                    label: Text(choice.title),
-                  );
-                },
-                listBuilder: ChoiceList.createScrollable(
-                  spacing: 10,
-                ),
-              )
-            : null,
-        body: ArticleListBuilder(
-          query: FirestoreService()
-              .getArticles(_selectedCategories, _searchQuery, _selectedSortBy),
-        ),
+      body: Column(
+        children: [
+          _selectedCategory == null
+              ? Padding(
+                  padding: const EdgeInsets.only(top: 8),
+                  child: Choice<String>.inline(
+                    clearable: false,
+                    value: ChoiceSingle.value(_selectedSortBy),
+                    onChanged: ChoiceSingle.onChanged(_setNewSortBy),
+                    itemCount: sortChoices.length,
+                    itemBuilder: (state, i) {
+                      final choice = sortChoices[i];
+                      return ChoiceChip(
+                        selected: state.selected(choice.value),
+                        onSelected: state.onSelected(choice.value),
+                        label: Text(choice.title),
+                      );
+                    },
+                    listBuilder: ChoiceList.createScrollable(
+                      spacing: 10,
+                    ),
+                  ),
+                )
+              : const SizedBox.shrink(),
+          Expanded(
+            child: ArticleListBuilder(
+              loadedArticles: [],
+              selectedCategory: _selectedCategory,
+              searchQuery: _searchQuery,
+              selectedSortBy: _selectedSortBy,
+            ),
+          ),
+        ],
       ),
     );
   }

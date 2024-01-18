@@ -233,7 +233,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                           child: Center(
                                             child: ListTile(
                                               leading: Image.network(
-                                                article.imageUrl,
+                                                article.urlToImage,
                                               ),
                                               title: Text(
                                                 article.title,

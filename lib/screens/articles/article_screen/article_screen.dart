@@ -1,10 +1,10 @@
 import 'package:favorite_button/favorite_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_news_app/models/articles.dart';
 import 'package:flutter_news_app/screens/articles/article_screen/article_body.dart';
 import 'package:flutter_news_app/screens/articles/article_screen/article_headline.dart';
 import 'package:flutter_news_app/services/firestore_service.dart';
+import 'package:flutter_news_app/models/article.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ArticleDetailsScreen extends StatelessWidget {
@@ -121,7 +121,7 @@ class FavButton extends StatelessWidget {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           List<Article> favArticles =
-              Article.fromJsonListDynamic(snapshot.data as List<dynamic>);
+              Article.parseList(snapshot.data as List<dynamic>);
           return FavoriteButton(
             iconDisabledColor:
                 Theme.of(context).colorScheme.tertiary.withOpacity(0.4),

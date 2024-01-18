@@ -1,4 +1,4 @@
-import 'package:flutter_news_app/models/articles.dart';
+import 'package:flutter_news_app/models/article.dart';
 
 class UserData {
   UserData({
@@ -19,18 +19,16 @@ class UserData {
       : email = json['email'].toString(),
         avatarUrl = json['avatar_url'].toString(),
         name = json['name'].toString(),
-        openedArticles =
-            Article.fromJsonListDynamic(json['opened_articles'] ?? []),
-        favoriteArticles =
-            Article.fromJsonListDynamic(json['favorite_articles'] ?? []);
+        openedArticles = Article.parseList(json['opened_articles'] ?? []),
+        favoriteArticles = Article.parseList(json['favorite_articles'] ?? []);
 
   Map<String, dynamic> toJson() {
     return {
       'email': email,
       'name': name,
       'avatar_url': avatarUrl,
-      'opened_articles': Article.fromJsonListDynamic(openedArticles),
-      'favorite_articles': Article.fromJsonListDynamic(favoriteArticles),
+      'opened_articles': Article.parseList(openedArticles),
+      'favorite_articles': Article.parseList(favoriteArticles),
     };
   }
 }

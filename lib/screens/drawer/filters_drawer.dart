@@ -6,7 +6,7 @@ import 'package:flutter_news_app/screens/drawer/category_button.dart';
 class FiltersDrawer extends StatelessWidget {
   const FiltersDrawer({
     super.key,
-    required this.selectedCategories,
+    required this.selectedCategory,
     required this.onSelectedCategoriesChanged,
     required this.name,
     required this.email,
@@ -14,7 +14,7 @@ class FiltersDrawer extends StatelessWidget {
     required this.onSignOut,
   });
 
-  final List<String> selectedCategories;
+  final String? selectedCategory;
   final Function onSelectedCategoriesChanged;
   final String name;
   final String email;
@@ -51,9 +51,12 @@ class FiltersDrawer extends StatelessWidget {
                               icon: category.icon,
                               text: StringUtils.capitalize(category.name),
                               value: category.name,
-                              selected:
-                                  selectedCategories.contains(category.name),
+                              selected: selectedCategory == category.name,
                               onClicked: (value) {
+                                if (selectedCategory == value) {
+                                  onSelectedCategoriesChanged(null);
+                                  return;
+                                }
                                 onSelectedCategoriesChanged(value);
                               },
                             ))
