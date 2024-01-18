@@ -2,6 +2,11 @@
 
 Just another news app, built for learning purposes.
 
+## Screenshots
+
+<img src='screenshots/main.png' width='200'> <img src='screenshots/article.png' width='200'> <img src='screenshots/favorites.png' width='200'> <img src='screenshots/login.png' width='200'>
+
+
 The project contains two branches:
 
 - **main** branch: This branch contains the implementation using the newsapi.org API to fetch the latest news articles.
@@ -29,19 +34,19 @@ The project contains two branches:
 
 3. Create a file named '.env' in the root directory of the project (not in the lib folder).
 
-4. Add the following line to the .env file and replace <YOUR_API_KEY> with your API key from [newsapi.org](https://newsapi.org/account).
+4. Add the following line to the .env file and replace <YOUR_API_KEY> with your API key.
 
 `API_KEY='<YOUR_API_KEY>'`
 
-5. Create a project on [firebase](https://console.firebase.google.com/)
+5. Create a project on [firebase](https://console.firebase.google.com/).
 
-6. Add and enable firebase authentication with email and password
+6. Add and enable firebase authentication with email and password.
 
-7. Add and enable firebase firestore (for saving favorite articles)
+7. Add and enable firebase firestore (for saving favorite articles).
 
-8. Make sure you have the firebase CLI installed
+8. Make sure you have the firebase CLI installed.
 
-9. Run flutterfire configure and connect your app to your firebase project
+9. Run flutterfire configure and connect your app to your firebase project.
 
 10. Run the app.
 
@@ -49,18 +54,16 @@ The project contains two branches:
 
 1. Create a project on [firebase](https://console.firebase.google.com/)
 
-2. Add and enable firebase authentication with email and password
+2. Add and enable firebase authentication with email and password.
 
-3. Add and enable firebase firestore
+3. Add and enable firebase firestore.
 
-4. Make sure you have the firebase CLI installed
+4. Make sure you have the firebase CLI installed.
 
-5. Run flutterfire configure and connect your app to your firebase project
+5. Run flutterfire configure and connect your app to your firebase project.
 
-6. Use the python scripts provided in the scripts folder to upload articles to your firebase firestore (Instructions on how to use the script are provided in the script file)
+6. Use the python scripts provided in the scripts folder to upload articles to your firebase firestore (Instructions on how to use the script are provided in the script file).
 
-7. Run the app
+7. Run the app.
 
-## Screenshots
 
-<img src='screenshots/main.png' width='200'> <img src='screenshots/article.png' width='200'> <img src='screenshots/favorites.png' width='200'> <img src='screenshots/login.png' width='200'>
