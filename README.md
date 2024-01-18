@@ -1,16 +1,69 @@
 # flutter_news_app
 
-A new Flutter project.
+Just another news app, built for learning purposes.
+
+The project contains two branches:
+
+- **main** branch: This branch contains the implementation using the newsapi.org API to fetch the latest news articles.
+- **with_firebase** branch: This alternative approach uses firebase firestore to store the news articles. The articles are uploaded to the firestore using a python script and a JSON file containing the articles.
+
+## Features
+
+- **Firebase Authentication** : Sign up using email and password
+- **Pagination**: The news articles are loaded in batches of 10 articles
+- **Filtering** : Filter news by category
+- **Search** : Search for news by search term
+- **Sorting** : Sort news by date, popularity or relevancy
+- **Favorites** : Save news to favorites
+
+- **Avatar Selection** : Select randomly an avatar for your profile
+- **Open In Browser** : Open the full news article in the default browser
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+### Using the newsapi.org API
 
-A few resources to get you started if this is your first Flutter project:
+1. Create an account on [newsapi.org](https://newsapi.org/).
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+2. Get your API key.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+3. Create a file named '.env' in the root directory of the project (not in the lib folder).
+
+4. Add the following line to the .env file and replace <YOUR_API_KEY> with your API key from [newsapi.org](https://newsapi.org/account).
+
+`API_KEY='<YOUR_API_KEY>'`
+
+5. Create a project on [firebase](https://console.firebase.google.com/)
+
+6. Add and enable firebase authentication with email and password
+
+7. Add and enable firebase firestore (for saving favorite articles)
+
+8. Make sure you have the firebase CLI installed
+
+9. Run flutterfire configure and connect your app to your firebase project
+
+10. Run the app.
+
+### Using Firebase Firestore
+
+1. Create a project on [firebase](https://console.firebase.google.com/)
+
+2. Add and enable firebase authentication with email and password
+
+3. Add and enable firebase firestore
+
+4. Make sure you have the firebase CLI installed
+
+5. Run flutterfire configure and connect your app to your firebase project
+
+6. Use the python scripts provided in the scripts folder to upload articles to your firebase firestore (Instructions on how to use the script are provided in the script file)
+
+7. Run the app
+
+## Screenshots
+
+<img src='screenshots/main.png' width='250'>
+<img src='screenshots/article.png' width='250'>
+<img src='screenshots/favorites.png' width='250'>
+<img src='screenshots/login.png' width='250'>

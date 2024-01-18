@@ -25,6 +25,7 @@ dependencies:
   transparent_image: ^2.0.1
   intl: ^0.19.0
   flutter_spinkit: ^5.2.0
+  flutter_dotenv: ^5.1.0
 
 dev_dependencies:
   flutter_test:
@@ -36,3 +37,4 @@ flutter:
   assets:
     - assets/images/logo.png
     - assets/images/placeholder.png
+    - .env

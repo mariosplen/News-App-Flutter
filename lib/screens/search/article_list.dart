@@ -1,19 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_news_app/models/response.dart';
 import 'package:flutter_news_app/screens/articles/article_list_item.dart';
 import 'package:flutter_news_app/models/article.dart';
 import 'package:flutter_news_app/services/news_api.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
-final _newsApi = NewsAPI("6d8bada1099c494aaddd7c1bcd3495e3");
-
-// 6d8bada1099c494aaddd7c1bcd3495e3
-// faa1ad9af01e430080a083faff1662ad
-// d6c871ecf8864c6cb8c8b1a6c0986f39
-// e44d15833154444b8581d5c8cafdad79
-// 3f8355f804144f668489b9bfa6c2fc06
-// 1385e62298d74aaa8ae3f6061ed495b4
-// ec4ce44cbbc448ffa2965d39f939b81c
+final _newsApi = NewsAPI(dotenv.env['API_KEY']!);
 
 class ArticleListBuilder extends StatefulWidget {
   const ArticleListBuilder({

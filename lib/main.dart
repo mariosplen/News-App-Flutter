@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_news_app/firebase_options.dart';
 import 'package:flutter_news_app/screens/auth/auth.dart';
 import 'package:flutter_news_app/screens/auth/splash.dart';
@@ -14,6 +15,8 @@ extension Log on Object {
 }
 
 void main() async {
+  // Load .env file, which contains the API key
+  await dotenv.load(fileName: ".env");
   // Fixes android grey status bar
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
