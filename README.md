@@ -1,4 +1,4 @@
-# flutter_news_app
+# Flutter News App
 
 Just another news app, built for learning purposes.
 
@@ -63,7 +63,4 @@ The project contains two branches:
 
 ## Screenshots
 
-<img src='screenshots/main.png' width='250'>
-<img src='screenshots/article.png' width='250'>
-<img src='screenshots/favorites.png' width='250'>
-<img src='screenshots/login.png' width='250'>
+<img src='screenshots/main.png' width='200'> <img src='screenshots/article.png' width='200'> <img src='screenshots/favorites.png' width='200'> <img src='screenshots/login.png' width='200'>
