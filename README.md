@@ -2,6 +2,11 @@
 
 Just another news app, built for learning purposes.
 
+## Screenshots
+
+<img src='screenshots/main.png' width='200'> <img src='screenshots/article.png' width='200'> <img src='screenshots/favorites.png' width='200'> <img src='screenshots/login.png' width='200'>
+
+
 The project contains two branches:
 
 - **main** branch: This branch contains the implementation using the newsapi.org API to fetch the latest news articles.
@@ -61,6 +66,4 @@ The project contains two branches:
 
 7. Run the app.
 
-## Screenshots
 
-<img src='screenshots/main.png' width='200'> <img src='screenshots/article.png' width='200'> <img src='screenshots/favorites.png' width='200'> <img src='screenshots/login.png' width='200'>
