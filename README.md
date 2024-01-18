@@ -29,7 +29,7 @@ The project contains two branches:
 
 3. Create a file named '.env' in the root directory of the project (not in the lib folder).
 
-4. Add the following line to the .env file and replace <YOUR_API_KEY> with your API key from [newsapi.org](https://newsapi.org/account).
+4. Add the following line to the .env file and replace <YOUR_API_KEY> with your API key.
 
 `API_KEY='<YOUR_API_KEY>'`
 
