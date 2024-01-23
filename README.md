@@ -10,7 +10,7 @@ Just another news app, built for learning purposes.
 The project contains two branches:
 
 - **main** branch: This branch contains the implementation using the newsapi.org API to fetch the latest news articles.
-- **with_firebase** branch: This alternative approach uses firebase firestore to store the news articles. The articles are uploaded to the firestore using a python script and a JSON file containing the articles.
+- **with_firestore** branch: This alternative approach uses firebase firestore to store the news articles. The articles are uploaded to the firestore using a python script and a JSON file containing the articles.
 
 ## Features
 
