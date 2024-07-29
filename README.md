@@ -62,7 +62,7 @@ The project contains two branches:
 
 5. Run flutterfire configure and connect your app to your firebase project.
 
-6. Use the python scripts provided in the scripts folder to upload articles to your firebase firestore (Instructions on how to use the script are provided in the script file).
+6. Use the python scripts provided in the firebase-data-script folder to upload articles to your firebase firestore (Instructions on how to use the script are provided in the script file).
 
 7. Run the app.
 
